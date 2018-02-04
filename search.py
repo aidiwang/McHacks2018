@@ -109,14 +109,22 @@ def search(filename):
 
       top_k = predictions.argsort()[-FLAGS.num_top_predictions:][::-1]
 
-      global returninfo
-      returninfo = str(node_lookup.id_to_string(top_k[0]))
+
 
       for node_id in top_k:
 
+        nbtofollow = 0
+
         human_string = node_lookup.id_to_string(node_id)
+
+        if nbtofollow==0:
+            global returninfo
+            returninfo = str(human_string)
+        nbtofollow+=1
+
         score = predictions[node_id]
         print('%s (score = %.5f)' % (human_string, score))
+
 
 
   def maybe_download_and_extract():
@@ -178,4 +186,4 @@ def search(filename):
     FLAGS, unparsed = parser.parse_known_args()
     tf.app.run(main=main, argv=[sys.argv[0]] + unparsed)
 
-  return returninfo
+  return
