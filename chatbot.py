@@ -109,7 +109,7 @@ def index(request):
         
         #start functions
         elif 'search' in in_message:
-           search(filename)
+           msg = search(filename)
             
         #elif 'locate' in in_message:
         #   locate(filename)
