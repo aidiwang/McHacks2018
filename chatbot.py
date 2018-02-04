@@ -111,13 +111,13 @@ def index(request):
         
         #start functions
         elif 'search' in in_message:
-            msg = "What do you want me to search?"
+           
             my_function = "search"
         elif 'locate' in in_message:
-            msg = "What do you want me to locate?"
+        
             my_function = "locate"
         elif 'translate' in in_message:
-            msg = "What do you want me to translate?"
+            
             my_function = "translate"
           
         #end functions
