@@ -126,11 +126,11 @@ def index(request):
             
         elif 'translate' in in_message:
             tolanguage = result.get('text').split('translate')[1].strip(" ")
+            tolanguage = tolanguage.lower()
 
 
             #dictionary?
-            def f(tolanguage.lower()):
-                return {
+            languages = {
                     "afrikaans": "af",
                     "albanian" : "sq",
                     "arabic" : "ar",
@@ -194,12 +194,14 @@ def index(request):
                     "urdu": "ur",
                     "vietnamese": "vi",
                     "welsh": "cy",
-                    "yiddish": "yi",
-                    
-                }[langcode]
+                    "yiddish": "yi",    
+                }
 
-            
-            msg = translate(filename, langcode)
+            for k, m in languages.items():
+                if tolanguage.lower() == k:
+                    langcode = m
+
+            msg = translate(filename, langcode).encode('utf-8')
             
           
         #end functions

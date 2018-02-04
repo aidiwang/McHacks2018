@@ -26,9 +26,11 @@ def translate(translatefilename, langcode):
     im = enhancer.enhance(2)
     im = im.convert('1')
     
-    text = pytesseract.image_to_string(im).encode("utf-8")
+    text = pytesseract.image_to_string(im)
+
+    translator = Translator()
+    text = translator.translate(text, dest=langcode).text
     
-    text = translator.translate(text, dest=langcode)
     
     return text
     
