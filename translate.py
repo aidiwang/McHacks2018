@@ -22,9 +22,9 @@ def translate(translatefilename, langcode):
 
     im = Image.open(str(translatefilename))
     im = im.filter(ImageFilter.MedianFilter())
+    im = im.convert('1')
     enhancer = ImageEnhance.Contrast(im)
     im = enhancer.enhance(2)
-    im = im.convert('1')
     
     text = pytesseract.image_to_string(im)
 

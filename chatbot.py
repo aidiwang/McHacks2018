@@ -6,6 +6,7 @@ from locate import *
 from translate import *
 import numpy as np
 import cv2
+import os
 
 
 def sendSparkGETFILE(url):
@@ -111,10 +112,7 @@ def index(request):
         if 'hello' in in_message:
             msg = "Hello!"
         elif 'can you' in in_message or 'do you' in in_message or 'do something' in in_message:
-            msg = "I can \n -do a Wiki search (type search + image) \n -find the location (type locate + image) \n -translate the text (type translate + image)\nof an image. "
-        #elif 'batsignal' in in_message:
-         #   print "NANA NANA NANA NANA"
-          #  sendSparkPOST("https://api.ciscospark.com/v1/messages", {"roomId": webhook['data']['roomId'], "files": bat_signal})
+            msg = "I translate the English text (attach an image and type \"translate\" + language) from an image to any language you want. "
         
         #start functions
         #elif 'search' in in_message:
@@ -216,7 +214,7 @@ def index(request):
          #   if "search" in my_function:
           #  elif "locate" in my_function:
            # elif ""
-
+        os.remove(filename)
     return "true"
 
 bot_email = "jjla@sparkbot.io"
