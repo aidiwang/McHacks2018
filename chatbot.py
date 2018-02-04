@@ -17,7 +17,7 @@ def sendSparkGETFILE(url):
                             headers={"Accept" : "application/json",
                                      "Content-Type":"application/json"})
     request.add_header("Authorization", "Bearer "+bearer)
-    contents = urllib2.urlopen(request)#.read()
+    contents = urllib2.urlopen(request)
     return contents
 
 def sendSparkGETTEXT(url):
