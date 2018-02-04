@@ -212,7 +212,7 @@ if __name__ == '__main__':
       """
   )
   parser.add_argument(
-      '--image_file',
+      'filename',
       type=str,
       default='',
       help='Absolute path to image file.'
