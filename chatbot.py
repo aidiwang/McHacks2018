@@ -1,10 +1,25 @@
 from itty import *
 import urllib2
 import json
-import search, locate, translate
+from search import *
+from locate import *
+from translate import *
 
 
-def sendSparkGET(url):
+def sendSparkGETFILE(url):
+    """
+    This method is used for:
+        -retrieving message text, when the webhook is triggered with a message
+        -Getting the username of the person who posted the message if a command is recognized
+    """
+    request = urllib2.Request(url,
+                            headers={"Accept" : "application/json",
+                                     "Content-Type":"application/json"})
+    request.add_header("Authorization", "Bearer "+bearer)
+    contents = urllib2.urlopen(request)#.read()
+    return contents
+
+def sendSparkGETTEXT(url):
     """
     This method is used for:
         -retrieving message text, when the webhook is triggered with a message
@@ -26,7 +41,7 @@ def sendSparkPOST(url, data):
                             headers={"Accept" : "application/json",
                                      "Content-Type":"application/json"})
     request.add_header("Authorization", "Bearer "+bearer)
-    contents = urllib2.urlopen(request).read()
+    contents = urllib2.urlopen(request).read
     return contents
    
 @post('/')
@@ -41,11 +56,17 @@ def index(request):
     #retrieve files code here
     if webhook['data'].has_key('files'):
         for file_url in webhook['data']['files']:
-            response = sendSparkGET(file_url)
 
-            print "response starts"
-            print response
-            print "response ends"
+#            print "\n\nstart url"
+#            print file_url
+#            print "end\n\n"
+            
+            response = sendSparkGETFILE(file_url)
+
+#            print "\n\nstart"
+#            test = response.info()
+#            print test
+#            print "end\n\n"
             
             content_disp = response.headers.get('Content-Disposition', None)
             if content_disp is not None:
@@ -56,13 +77,16 @@ def index(request):
                     print 'Saved-', filename
             else:
                 print "Cannot save file- no Content-Disposition header received."
-    else:
+    '''else:
         print "No files attached to retrieve!"
-        return "true"
+        return "true"'''
     #retrieve files code here
 
     print webhook['data']['id']
-    result = sendSparkGET('https://api.ciscospark.com/v1/messages/{0}'.format(webhook['data']['id']))
+    result = sendSparkGETTEXT('https://api.ciscospark.com/v1/messages/{0}'.format(webhook['data']['id']))
+
+    #result.read()
+    
     result = json.loads(result)
     msg = None
     if webhook['data']['personEmail'] != bot_email:
@@ -74,7 +98,7 @@ def index(request):
         if 'files' in result:
             in_image = result.get('files', '')
         
-        in_message = result.get('text', '').lower()
+        in_message = result.get('text').lower()
         in_message = in_message.replace(bot_name, '')
         if 'hello' in in_message:
             msg = "Hello!"
