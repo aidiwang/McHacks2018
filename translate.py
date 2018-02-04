@@ -5,7 +5,7 @@ import cv2
 import os
 from googletrans import Translator
 
-def translate(translatefilename):
+def translate(translatefilename, langcode):
 
     #pytesseract.pytesseract.tesseract_cmd = "C:\Program Files (x86)\Tesseract-OCR\tesseract.exe"
     '''image=cv2.imread(translatefilename)
@@ -26,13 +26,11 @@ def translate(translatefilename):
     im = enhancer.enhance(2)
     im = im.convert('1')
     
+    text = pytesseract.image_to_string(im).encode("utf-8")
     
-    text = pytesseract.image_to_string(im)
-
-    #translator = Translator()
-    #translated = translator.translate(text).encode("utf-8")
-
-    return text.encode("utf-8")
+    text = translator.translate(text, dest=langcode)
+    
+    return text
     
 
      
