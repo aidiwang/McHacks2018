@@ -104,7 +104,7 @@ def index(request):
         if 'hello' in in_message:
             msg = "Hello!"
         elif 'can you' in in_message or 'do you' in in_message or 'do something' in in_message:
-            msg = "I can: \n -do a Wiki search (type search + image) \n -find the location (type locate + image) \n -translate the text (type translate + image) of an image. "
+            msg = "I can: \n -do a Wiki search (type search + image) \n -find the location (type locate + image) \n -translate the text of an image (type translate + image). "
         #elif 'batsignal' in in_message:
          #   print "NANA NANA NANA NANA"
           #  sendSparkPOST("https://api.ciscospark.com/v1/messages", {"roomId": webhook['data']['roomId'], "files": bat_signal})
