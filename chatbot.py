@@ -4,6 +4,7 @@ import json
 from search import *
 from locate import *
 from translate import *
+import pytesseract
 
 
 def sendSparkGETFILE(url):
@@ -107,11 +108,31 @@ def index(request):
         #elif 'batsignal' in in_message:
          #   print "NANA NANA NANA NANA"
           #  sendSparkPOST("https://api.ciscospark.com/v1/messages", {"roomId": webhook['data']['roomId'], "files": bat_signal})
+        
+        #start functions
+        elif 'search' in in_message:
+            msg = "What do you want me to search?"
+            my_function = "search"
+        elif 'locate' in in_message:
+            msg = "What do you want me to locate?"
+            my_function = "locate"
+        elif 'translate' in in_message:
+            msg = "What do you want me to translate?"
+            my_function = "translate"
+          
+        #end functions
+
         else:
             msg = "What can I do for you?"
         if msg != None:
             print msg
             sendSparkPOST("https://api.ciscospark.com/v1/messages", {"roomId": webhook['data']['roomId'], "text": msg})
+
+        #if my_function != None:
+         #   if "search" in my_function:
+          #  elif "locate" in my_function:
+           # elif ""
+
     return "true"
 
 bot_email = "jjla@sparkbot.io"
