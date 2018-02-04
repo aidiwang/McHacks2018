@@ -1,4 +1,4 @@
 import pytesseract
 
-def translate():
+def translate(filename):
     return
