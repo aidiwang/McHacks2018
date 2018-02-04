@@ -1,6 +1,7 @@
 from itty import *
 import urllib2
 import json
+import search, locate, translate
 
 
 def sendSparkGET(url):
