@@ -113,8 +113,7 @@ def index(request):
         if 'hello' in in_message:
             msg = "Hello!"
         elif 'can you' in in_message or 'do you' in in_message or 'do something' in in_message:
-            msg = "I translate the English text (attach an image and type \"translate\" + language) from an image to any language you want.\n\n"
-            + "I can also read an English text image (attach an image and type \"read\"). "
+            msg = "I translate the English text (attach an image and type \"translate\" + language) from an image to any language you want.\n\nI can also read an English text image (attach an image and type \"read\"). "
         
         #start functions
         #elif 'search' in in_message:
@@ -139,8 +138,8 @@ def index(request):
                     "belarusian": "be",
                     "bulgarian": "bg",
                     "catalan": "ca",
-                    "chinese simplified": "zh-CN",
-                    "chinese traditional": "zh-TW",
+                    "chinese-simplified": "zh-CN",
+                    "chinese-traditional": "zh-TW",
                     "croatian": "hr",
                     "czech": "cs",
                     "danish": "da",
@@ -199,8 +198,8 @@ def index(request):
             for k, m in languages.items():
                 if tolanguage.lower() == k:
                     langcode = m
-
             msg = translate(filename, langcode).encode('utf-8')
+            os.remove(filename)
             
         elif 'read' in in_message:
             speech(filename)
@@ -213,7 +212,7 @@ def index(request):
             r = requests.post('https://api.ciscospark.com/v1/messages', data=m,
                               headers={'Authorization': 'Bearer MWE5M2NhM2QtOTdmMS00MTQ2LThhNjgtODM0NzE2YjVlZTdlMTAxNTk0MTItYjNl',
                               'Content-Type': m.content_type})
-
+            os.remove(filename)
             print r
           
         #end functions
@@ -228,7 +227,7 @@ def index(request):
          #   if "search" in my_function:
           #  elif "locate" in my_function:
            # elif ""
-        os.remove(filename)
+        
     return "true"
 
 bot_email = "jjla@sparkbot.io"
