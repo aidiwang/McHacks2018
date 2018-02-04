@@ -108,14 +108,14 @@ def index(request):
           #  sendSparkPOST("https://api.ciscospark.com/v1/messages", {"roomId": webhook['data']['roomId'], "files": bat_signal})
         
         #start functions
-        #elif 'search' in in_message:
-        #   search(filename)
+        elif 'search' in in_message:
+           search(filename)
             
         #elif 'locate' in in_message:
         #   locate(filename)
             
         #elif 'translate' in in_message:
-            
+        #   translate(filename)
             
           
         #end functions
