@@ -33,7 +33,8 @@ def translate(translatefilename, langcode):
     
     
     return text
-    
+
+
 
      
     #show the output images

@@ -1,12 +1,13 @@
 from itty import *
 import urllib2
 import json
-from search import *
-from locate import *
 from translate import *
+from speech import *
 import numpy as np
 import cv2
 import os
+import requests
+from requests_toolbelt.multipart.encoder import MultipartEncoder
 
 
 def sendSparkGETFILE(url):
@@ -112,7 +113,8 @@ def index(request):
         if 'hello' in in_message:
             msg = "Hello!"
         elif 'can you' in in_message or 'do you' in in_message or 'do something' in in_message:
-            msg = "I translate the English text (attach an image and type \"translate\" + language) from an image to any language you want. "
+            msg = "I translate the English text (attach an image and type \"translate\" + language) from an image to any language you want.\n\n"
+            + "I can also read an English text image (attach an image and type \"read\"). "
         
         #start functions
         #elif 'search' in in_message:
@@ -125,7 +127,6 @@ def index(request):
         elif 'translate' in in_message:
             tolanguage = result.get('text').split('translate')[1].strip(" ")
             tolanguage = tolanguage.lower()
-
 
             #dictionary?
             languages = {
@@ -201,6 +202,19 @@ def index(request):
 
             msg = translate(filename, langcode).encode('utf-8')
             
+        elif 'read' in in_message:
+            speech(filename)
+
+            m = MultipartEncoder({'roomId': 'Y2lzY29zcGFyazovL3VzL1JPT00vNGE2NWIxODAtMDkxMi0xMWU4LThmMmItNzUyNTQzMWRjYTYw',
+                                  'text': 'example attached',
+                                  'files': ('audio.mp3', open('audio.mp3', 'rb'),
+                                  'audio/mpeg')})
+
+            r = requests.post('https://api.ciscospark.com/v1/messages', data=m,
+                              headers={'Authorization': 'Bearer MWE5M2NhM2QtOTdmMS00MTQ2LThhNjgtODM0NzE2YjVlZTdlMTAxNTk0MTItYjNl',
+                              'Content-Type': m.content_type})
+
+            print r
           
         #end functions
 
@@ -220,5 +234,4 @@ def index(request):
 bot_email = "jjla@sparkbot.io"
 bot_name = "JJLA"
 bearer = "MWE5M2NhM2QtOTdmMS00MTQ2LThhNjgtODM0NzE2YjVlZTdlMTAxNTk0MTItYjNl"
-bat_signal  = "https://upload.wikimedia.org/wikipedia/en/c/c6/Bat-signal_1989_film.jpg"
 run_itty(server='wsgiref', host='0.0.0.0', port=8080)
