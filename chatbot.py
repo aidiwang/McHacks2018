@@ -65,7 +65,7 @@ def index(request):
             response = sendSparkGETFILE(file_url)
 
             print "\n\nstart"
-            print response.info()
+            print response.info().get('Content-Disposition')
             print "end\n\n"
             
             content_disp = response.headers.get('Content-Disposition', None)
@@ -103,14 +103,14 @@ def index(request):
         if 'hello' in in_message:
             msg = "Hello!"
         elif 'can you' in in_message or 'do you' in in_message or 'do something' in in_message:
-            msg = "I can \n -do a Wiki search (type search + image) \n -find the location (type locate + image) \n -translate the text (type translate + image) of an image. "
+            msg = "I can \n -do a Wiki search (type search + image) \n -find the location (type locate + image) \n -translate the text (type translate + image)\nof an image. "
         #elif 'batsignal' in in_message:
          #   print "NANA NANA NANA NANA"
           #  sendSparkPOST("https://api.ciscospark.com/v1/messages", {"roomId": webhook['data']['roomId'], "files": bat_signal})
         
         #start functions
-        #elif 'search' in in_message:
-           #thisfile = 
+        elif 'search' in in_message:
+           search(filename)
             
         #elif 'locate' in in_message:
         
