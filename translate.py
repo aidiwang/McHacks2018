@@ -28,15 +28,9 @@ def translate(translatefilename):
     
     
     text = pytesseract.image_to_string(im)
-    text = text
-    '''
-    translator = Translator()
-    translated = translator.translate(text).encode("utf-8")
 
-    print "\n translated right now is"
-    print translated
-    print"\nand text is"
-    print text'''
+    #translator = Translator()
+    #translated = translator.translate(text).encode("utf-8")
 
     return text.encode("utf-8")
     

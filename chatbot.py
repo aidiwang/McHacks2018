@@ -125,9 +125,18 @@ def index(request):
         #    msg = locate(filename)
             
         elif 'translate' in in_message:
-            print "\nthis is the filename"
-            print filename
-            msg = translate(filename)
+            tolanguage = result.get('text').split('translate')[1].strip(" ")
+
+
+            #dictionary?
+            def f(tolanguage):
+                return {
+                    'a': 1,
+                    'b': 2,
+                }[langcode]
+
+            
+            msg = translate(filename, langcode)
             
           
         #end functions
