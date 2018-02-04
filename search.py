@@ -1,6 +1,6 @@
 class NodeLookup(object):
   """Converts integer node ID's to human readable labels."""
-def search(filename):
+def search(searching_filename):
 
   def __init__(self,
                label_lookup_path=None,
@@ -172,7 +172,7 @@ def search(filename):
         """
     )
     parser.add_argument(
-        'filename',
+        '--image_type',
         type=str,
         default='',
         help='Absolute path to image file.'
@@ -185,5 +185,3 @@ def search(filename):
     )
     FLAGS, unparsed = parser.parse_known_args()
     tf.app.run(main=main, argv=[sys.argv[0]] + unparsed)
-
-  return

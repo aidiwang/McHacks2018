@@ -4,6 +4,8 @@ import json
 from search import *
 from locate import *
 from translate import *
+import numpy as np
+import cv2
 
 
 def sendSparkGETFILE(url):
@@ -63,17 +65,24 @@ def index(request):
             
             response = sendSparkGETFILE(file_url)
 
-            print "\n\nstart"
-            print response.info().get('Content-Disposition')
+            print "\n\nstart response"
+            #print response.info().get('Content-Disposition')
+            print response
             print "end\n\n"
             
             content_disp = response.headers.get('Content-Disposition', None)
             if content_disp is not None:
                 filename = content_disp.split("filename=")[1]
                 filename = filename.replace('"', '')
-                with open(filename, 'w') as f:
+                
+                with open(filename, 'wb') as f:
                     f.write(response.read())
                     print 'Saved-', filename
+                '''with open(response.read(), 'rb') as f:
+                    data = f.read()
+                with open(filename, 'wb') as f:
+                    f.write(data)'''
+                
             else:
                 print "Cannot save file- no Content-Disposition header received."
     '''else:
@@ -108,14 +117,17 @@ def index(request):
           #  sendSparkPOST("https://api.ciscospark.com/v1/messages", {"roomId": webhook['data']['roomId'], "files": bat_signal})
         
         #start functions
-        elif 'search' in in_message:
-           msg = search(filename)
+        #elif 'search' in in_message:
+        #    print "searching..."
+        #    msg = search(filename)
             
         #elif 'locate' in in_message:
-        #   locate(filename)
+        #    msg = locate(filename)
             
-        #elif 'translate' in in_message:
-        #   translate(filename)
+        elif 'translate' in in_message:
+            print "\nthis is the filename"
+            print filename
+            msg = translate(filename)
             
           
         #end functions
