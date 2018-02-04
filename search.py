@@ -109,7 +109,8 @@ def search(filename):
 
       top_k = predictions.argsort()[-FLAGS.num_top_predictions:][::-1]
 
-      global returninfo = str(node_lookup.id_to_string(top_k[0]))
+      global returninfo
+      returninfo = str(node_lookup.id_to_string(top_k[0]))
 
       for node_id in top_k:
 
